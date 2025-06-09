@@ -1,0 +1,17 @@
+<h1 class="mt-5 mb-4">Bienvenue sur The Gossip Project</h1>
+
+<div class="d-flex flex-wrap justify-content-center">
+  <% Gossip.all.each do |gossip| %>
+  
+      <div class="card m-4" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title"><%= gossip.title %></h5>
+          <p class="card-text"><%= gossip.content %></p>
+            
+           <p class="card-text"><small class="text-body-secondary"> <%= gossip.user.first_name %> <%= gossip.user.last_name %> </small></p>
+           <%= link_to 'Voir ce potin', gossip_path(gossip), class: "btn btn-outline-info" %>
+        </div>
+      </div>
+  
+  <%end%>
+</div>

@@ -1,0 +1,9 @@
+<% user = @gossip.user%>
+
+<div class="container m-4 border border-1" style="height: 50em;">
+  <p class ="m-4 text-start"> Auteur: <strong><%= user.first_name %> <%= user.last_name%></strong> <%= link_to 'En savoir plus ', user_path(user) %> </p>
+  <h1 class="m-5"><%= @gossip.title %></h1>
+  <p> <%= @gossip.content %> </p>
+  <p> Crée le  <%= @gossip.created_at %> </p>
+  
+</div>

@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  get "/team", to:''
+  get "user/:id", to: 'user#show', as: 'user'
+  get "gossip/:id", to: 'gossip#show', as: 'gossip'
+  root 'pages#home'
+  get "welcome/:user_name", to: 'welcome#hello', as: 'welcome'
+  get "/contact", to: 'pages#contact'
+  get "/team", to: 'pages#team'
+  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
