@@ -1,24 +1,34 @@
-# README
+# The Gossip Project – First Views
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Welcome to my first Rails app with a touch of front-end! 🎉
 
-Things you may want to cover:
+## Objective
 
-* Ruby version
+Build the first version of *The Gossip Project*, featuring basic pages and a clean layout using Bootstrap.
 
-* System dependencies
+## Features
 
-* Configuration
+- Home page displaying all gossips
+- Team page (`/team`)
+- Contact page (`/contact`)
+- Personalized welcome page (`/welcome/:first_name`)
+- Individual gossip show page (`/gossips/:id`)
+- User profile page (`/users/:id`)
+- Layout with Bootstrap (cards, header, etc.)
+- Header with navigation links
 
-* Database creation
+## Installation
 
-* Database initialization
+```bash
+git clone https://github.com/your-username/the-gossip-project.git
+cd the-gossip-project
+bundle install
+rails db:create db:migrate db:seed
+rails server
+```
 
-* How to run the test suite
+## Technologies Used
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Ruby on Rails
+- Bootstrap 5 (via CDN)
+- Sqlite
