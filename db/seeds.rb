@@ -34,12 +34,14 @@ users = 10.times.map do
   )
 end
 
-puts "10 utilisateurs ont été crées"
+User.create!(first_name: "Anonymous", last_name: "R", description: Faker::Lorem.paragraph, email: "anonymous@mail.com", age: 33, city: cities.sample)
+
+puts "10+1 utilisateurs ont été crées"
 
 # Gossips
 gossips = 20.times.map do
   Gossip.create!(
-    title: Faker::Book.title,
+    title: Faker::Book.title[0...14],
     content: Faker::Lorem.paragraph,
     user: users.sample
   )
