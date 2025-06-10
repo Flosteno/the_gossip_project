@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "welcome/:user_name", to: 'welcome#hello', as: 'welcome'
   get "/contact", to: 'pages#contact'
   get "/team", to: 'pages#team'
+
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
