@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-  resources :gossips, only: [:index, :new, :create]
-  get "user/:id", to: 'user#show', as: 'user'
-  get "gossip/:id", to: 'gossip#show', as: 'gossip'
-  root 'pages#home'
+  root 'gossips#index'
+  resources :gossips
+  resources :user, only: [:show]
   get "welcome/:user_name", to: 'welcome#hello', as: 'welcome'
   get "/contact", to: 'pages#contact'
   get "/team", to: 'pages#team'
