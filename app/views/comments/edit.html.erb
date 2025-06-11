@@ -1,12 +1,20 @@
 <% content_for :title, "Editing comment" %>
 
-<h1>Editing comment</h1>
+<h1>Modifier le commentaire</h1>
 
-<%= render "form", comment: @comment %>
-
+<%= form_with model: @comment, local: true do |f| %>
+    <div class="col-12">
+      <%= f.text_area :content, class: "form-control", rows: 2 %>
+      <div class="text-end mt-2">
+        
+        <%= f.submit "Modifier", class: "btn btn-secondary" %>
+      </div>
+    </div>
+<% end %>
+<%= button_to "supprimer", comment_path(@comment), method: :delete, data: {confirm: "Es-tu sur ?"}, class: "btn btn-danger" %>
 <br>
 
 <div>
   <%= link_to "Show this comment", @comment %> |
-  <%= link_to "Back to comments", gossip_path(@comment.gossip) %>
+  <%= link_to "Retour au gossip", gossip_path(@gossip) %>
 </div>

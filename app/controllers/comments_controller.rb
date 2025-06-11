@@ -17,6 +17,8 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/edit
   def edit
+    @comment = Comment.find(params[:id])
+    @gossip = @comment.gossip
   end
 
   # POST /comments or /comments.json
@@ -33,25 +35,19 @@ class CommentsController < ApplicationController
 
   # PATCH/PUT /comments/1 or /comments/1.json
   def update
-    respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: "Comment was successfully updated." }
-        format.json { render :show, status: :ok, location: @comment }
+        redirect_to gossip_path(@comment.gossip), notice: "Le commentaire a été mis à jour avec succès"
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+        flash.now[:alert] = "Erreur : veuillez remplir tous les champs correctement."
+        render :edit
       end
-    end
   end
 
   # DELETE /comments/1 or /comments/1.json
   def destroy
+    @gossip = @comment.gossip
     @comment.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to comments_path, status: :see_other, notice: "Comment was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to gossip_path(@gossip), notice: "Le commentaire a été supprimé avec succès."  
   end
 
   private

@@ -2,15 +2,11 @@
 
 <% content_for :title, "Comments" %>
 
-<h1>Comments</h1>
+<h1 class = "my-4">Commentaires par potin</h1>
+  <%Gossip.all.each do |gossip|%>
 
-<div id="comments">
-  <% @comments.each do |comment| %>
-    <%= render comment %>
-    <p>
-      <%= link_to "Show this comment", comment %>
-    </p>
+    <%comments_nb = gossip.comments.count%>
+    <div>
+      <%= "#{gossip.title} a #{comments_nb}  #{comments_nb == 1 ? 'commentaire' : 'commentaires' }" %>
+    </div>
   <% end %>
-</div>
-
-<%= link_to "New comment", new_comment_path %>
