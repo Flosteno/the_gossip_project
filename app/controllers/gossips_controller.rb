@@ -41,13 +41,12 @@ class GossipsController < ApplicationController
     @gossip = Gossip.find(params[:id])
     @gossip.destroy
     redirect_to gossips_path, notice: "Potin supprimé avec succès."
-    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
   end
 
   private
 
   def post_params
-    params.require(:gossip).permit(:title, :content)
+    params.require(:gossip).permit(:title, :content, tag_ids: [])
   end
 
 end

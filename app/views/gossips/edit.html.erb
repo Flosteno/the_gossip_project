@@ -23,9 +23,18 @@
       <%= f.text_area :content, class: "form-control", rows: 5 %>
     </div>
 
-    <%= f.hidden_field :user_id, value: 11 %>
-
+    <div class="col-12">
+      <%= f.label :tags, "Tags", class: "form-label" %><br>
+      <% Tag.all.each do |tag| %>
+        <div class="form-check form-check-inline">
+          <%= check_box_tag "gossip[tag_ids][]", tag.id, false, id: "tag_#{tag.id}", class: "form-check-input" %>
+          <%= label_tag "tag_#{tag.id}", tag.title, class: "form-check-label" %>
+        </div>
+      <% end %>
+    </div>
+    
     <div class="col-12 text-center">
+      <%= link_to "Retour", gossip_path(@gossip), class: "btn btn-secondary mt-3" %>
       <%= f.submit "Envoyer", class: "btn btn-primary mt-3" %>
     </div>
   <% end %>
