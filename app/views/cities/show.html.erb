@@ -1,0 +1,29 @@
+<div class="container my-5">
+  <!-- Nom de la ville -->
+  <h1 class="display-3 text-center mb-5"><%= @city.name %></h1>
+
+  <div class="row g-4">
+    <% @city.users.each do |user| %>
+      <% user.gossips.each do |gossip| %>
+        <div class="col-md-6 col-lg-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title"><%= gossip.title %></h5>
+              <p class="card-text flex-grow-1"><%= truncate(gossip.content, length: 150) %></p>
+              <p class="text-muted mb-2">Par <%= link_to "#{user.first_name} #{user.last_name}", user_path(user) %></p>
+              <%= link_to "Lire plus", gossip_path(gossip), class: "btn btn-primary mt-auto" %>
+            </div>
+            <div class="card-footer text-muted">
+              Publié le <%= gossip.created_at.strftime("%d/%m/%Y") %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if @city.users.none? { |u| u.gossips.any? } %>
+    <p class="text-center text-muted mt-5">Aucun potin disponible pour cette ville.</p>
+  <% end %>
+</div>
+
