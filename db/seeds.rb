@@ -1,7 +1,7 @@
 require 'faker'
 
 
-[Recipient, PrivateMessage, GossipTag, Tag, Gossip, User, City].each(&:destroy_all)
+[Recipient, PrivateMessage, GossipTag, Tag, Gossip, User, City, Comment].each(&:destroy_all)
 
 ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='cities'")
 ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='users'")
@@ -10,6 +10,7 @@ ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='t
 ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='gossip_tags'")
 ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='private_messages'")
 ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='recipients'")
+ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='comments'")
 
 
 # Cities
@@ -34,7 +35,7 @@ users = 10.times.map do
   )
 end
 
-User.create!(first_name: "Anonymous", last_name: "R", description: Faker::Lorem.paragraph, email: "anonymous@mail.com", age: 33, city: cities.sample)
+ano = User.create!(first_name: "Anonymous", last_name: "R", description: Faker::Lorem.paragraph, email: "anonymous@mail.com", age: 33, city: cities.sample)
 
 puts "10+1 utilisateurs ont été crées"
 
@@ -75,3 +76,8 @@ end
 end
 
 puts "Des messages privées ont été crées"
+
+# Commentaires
+ano.gossips.each do |gossip|
+  Comment.create!(content: "Commentaire du seed", user: ano, gossip: gossip)
+end

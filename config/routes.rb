@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root 'gossips#index'
-  resources :gossips
+  resources :comments
+  resources :gossips do
+    resources :comments, only: [:create]
+  end
   resources :users, only: [:show]
   resources :cities, only: [:show]
   get "welcome/:user_name", to: 'welcome#hello', as: 'welcome'
