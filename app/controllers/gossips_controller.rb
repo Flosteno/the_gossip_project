@@ -1,4 +1,7 @@
 class GossipsController < ApplicationController
+  before_action :authenticate_user, only: [:new, :edit, :update, :create]
+  before_action :authorize_user, only: [:edit, :update, :destroy]
+
   def index
     @gossips = Gossip.all
   end
@@ -12,8 +15,7 @@ class GossipsController < ApplicationController
   end
 
   def create
-    @gossip = Gossip.new(post_params)
-    @gossip.user_id = 11
+    @gossip.user_id = current_user
   
     if @gossip.save
       redirect_to root_path, notice: "Le super potin a bien été sauvegardé !"
@@ -28,17 +30,15 @@ class GossipsController < ApplicationController
   end
 
   def update
-     @gossip = Gossip.find(params[:id])
-  if @gossip.update(post_params)
-    redirect_to @gossip, notice: "Le potin a été mis à jour avec succès."
-  else
-    flash.now[:alert] = "Erreur : veuillez remplir tous les champs correctement."
-    render :edit, status: :unprocessable_entity
-  end
+    if @gossip.update(post_params)
+      redirect_to @gossip, notice: "Le potin a été mis à jour avec succès."
+    else
+      flash.now[:alert] = "Erreur : veuillez remplir tous les champs correctement."
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
-    @gossip = Gossip.find(params[:id])
     @gossip.destroy
     redirect_to gossips_path, notice: "Potin supprimé avec succès."
   end

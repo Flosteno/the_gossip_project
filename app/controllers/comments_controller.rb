@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
+  before_action :authenticate_user, only: [:new, :edit, :update, :create]
 
   # GET /comments or /comments.json
   def index
@@ -25,7 +26,7 @@ class CommentsController < ApplicationController
   def create
     @gossip = Gossip.find(params[:gossip_id])
     @comment = @gossip.comments.build(comment_params)
-    @comment.user = User.find(11)
+    @comment.user = current_user
     if @comment.save
       redirect_to gossip_path(@gossip), notice: "Commentaire ajouté !"
     else

@@ -8,11 +8,10 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
 
     if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
+      log_in(user)
       redirect_to root_path, notice: "Connexion établie"
     else
       flash.now[:alert] = 'Combinaison email/mot de passe invalide'
-      puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
       render :new, status: :unprocessable_entity
     end
   end
