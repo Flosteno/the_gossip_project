@@ -20,7 +20,7 @@ Build the first version of *The Gossip Project*, featuring basic pages and a cle
 ## Installation
 
 ```bash
-git clone https://github.com/your-username/the-gossip-project.git
+git clone https://github.com/flosteno/the-gossip-project.git
 cd the-gossip-project
 bundle install
 rails db:create db:migrate db:seed
