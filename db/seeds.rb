@@ -31,11 +31,12 @@ users = 10.times.map do
     description: Faker::Lorem.paragraph,
     email: Faker::Internet.email,
     age: rand(18..70),
-    city: cities.sample
+    city: cities.sample,
+    password: "tototo"
   )
 end
 
-ano = User.create!(first_name: "Anonymous", last_name: "R", description: Faker::Lorem.paragraph, email: "anonymous@mail.com", age: 33, city: cities.sample)
+ano = User.create!(first_name: "Anonymous", last_name: "R", description: Faker::Lorem.paragraph, email: "anonymous@mail.com", age: 33, city: cities.sample, password: "nonono")
 
 puts "10+1 utilisateurs ont été crées"
 
