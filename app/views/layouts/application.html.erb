@@ -52,12 +52,23 @@
                 <li class="nav-item">
                  <!-- <%= link_to 'Bienvenue', welcome_path("Bob"), class: "nav-link" %> -->
                 </li>
-                <li class="nav-item">
-                  <%= link_to 'S\'inscrire', new_user_path, class: "nav-link #{'active' if current_page?(contact_path)}" %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to 'Se connecter', new_session_path, class: "nav-link #{'active' if current_page?(contact_path)}" %>
-                </li>
+                <%if session[:user_id]%>
+                    <%= button_to "Déconnexion", session_path, method: :delete %>
+                <%else%>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-turbo="false">
+                      Compte
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownAccount">
+                      <li>
+                        <%= link_to "S'inscrire", new_user_path, class: "dropdown-item #{'active' if current_page?(new_user_path)}" %>
+                      </li>
+                      <li>
+                        <%= link_to "Se connecter", new_session_path, class: "dropdown-item #{'active' if current_page?(new_session_path)}" %>
+                      </li>
+                    </ul>
+                  </li>
+                <% end %>
               </ul>
             </div>
           </div>
@@ -83,7 +94,9 @@
       
     </div>
     <!-- JavaScript Bootstrap Bundle (avec Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 
   </body>
 </html>
