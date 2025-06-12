@@ -5,6 +5,8 @@ class User < ApplicationRecord
   has_many :sent_messages, class_name: 'PrivateMessage', foreign_key: 'sender_id'
   has_many :recipients
   has_many :received_messages, through: :recipients, source: :private_message
+  has_many :likes, dependent: :destroy
+  has_many :liked_gossips, through: :likes, source: :gossip
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :description, presence: true

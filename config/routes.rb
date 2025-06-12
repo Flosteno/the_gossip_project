@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :comments
   resources :gossips do
     resources :comments, only: [:create]
+    resources :likes, only: [:create, :destroy]
   end
   resources :users, only: [:show, :new, :create]
   resources :cities, only: [:show]

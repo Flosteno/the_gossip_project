@@ -82,3 +82,18 @@ puts "Des messages privées ont été crées"
 ano.gossips.each do |gossip|
   Comment.create!(content: "Commentaire du seed", user: ano, gossip: gossip)
 end
+
+like_count = 0
+
+gossips.each do |gossip|
+  # Chaque gossip aura entre 0 et 5 likes aléatoires
+  users.sample(rand(0..5)).each do |user|
+    # On évite les doublons
+    unless Like.exists?(user: user, gossip: gossip)
+      Like.create!(user: user, gossip: gossip)
+      like_count += 1
+    end
+  end
+end
+
+puts "#{like_count} likes crées."

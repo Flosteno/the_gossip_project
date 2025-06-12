@@ -1,22 +1,27 @@
-<% author = @gossip.user%>
-
+<% author = @gossip.user %>
+<% gossip = @gossip %>
 
 <div class="container my-5">
-  <div class="text-start" ><%= link_to 'Retour', root_path, class: "btn btn-secondary" %></div>
+  <div class="text-start">
+    <%= link_to 'Retour', root_path, class: "btn btn-secondary" %>
+  </div>
+
   <div class="card shadow-sm">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
       <div>
         <strong>Auteur :</strong>
         <%= link_to "#{author.first_name} #{author.last_name}", user_path(user_id: author, gossip_id: @gossip), class: "text-white text-decoration-underline" %>
       </div>
+
       <% if current_user == author %>
-        <div> 
+        <div>
           <%= link_to 'Modifier le potin', edit_gossip_path(@gossip), class: "btn btn-warning" %>
         </div>
-        <div> 
-          <%= button_to 'Supprimer le potin', gossip_path(@gossip), method: :delete, data: { controller: "confirm", action: "click->confirm#confirm", confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger"%>
+        <div>
+          <%= button_to 'Supprimer le potin', gossip_path(@gossip), method: :delete, data: { controller: "confirm", action: "click->confirm#confirm", confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger" %>
         </div>
       <% end %>
+
       <div>
         <strong>Ville :</strong>
         <%= link_to author.city.name, city_path(author.city), class: "text-white text-decoration-underline" %>
@@ -24,23 +29,46 @@
     </div>
 
     <div class="card-body">
-      <h1 class="card-title display-5 mb-4"><%= @gossip.title %></h1>
-      <p class="card-text fs-5"><%= simple_format(@gossip.content) %></p>
+      <div class="row">
+        <!-- Colonne de gauche pour les likes -->
+        <div class="-auto d-flex align-items-center gap-2 pt-2">
+          <% if current_user %>
+            <% if (like = gossip.likes.find_by(user_id: current_user.id)) %>
+              <%= button_to gossip_like_path(gossip, like), method: :delete, class: "btn btn-link p-0", form: { "data-turbo" => false } do %>
+                <i class="fa-solid fa-heart text-danger fa-xl"></i>
+              <% end %>
+            <% else %>
+              <%= button_to gossip_likes_path(gossip), method: :post, class: "btn btn-link p-0", form: { "data-turbo" => false } do %>
+                <i class="fa-regular fa-heart text-secondary fa-xl"></i>
+              <% end %>
+            <% end %>
+          <% else %>
+            <i class="fa-solid fa-heart text-danger fa-xl"></i>
+          <% end %>
+          <span><%= gossip.likes.count %></span>
+        </div>
+
+
+
+        <!-- Colonne de droite pour le contenu -->
+        <div class="col">
+          <h1 class="card-title display-5 mb-4"><%= @gossip.title %></h1>
+          <p class="card-text fs-5"><%= simple_format(@gossip.content) %></p>
+        </div>
+      </div>
     </div>
 
     <div class="card-footer text-muted text-end">
-      
       <% @gossip.tags.each do |tag| %>
-        <span><%= "#{tag.title}" %></span>
+        <span><%= tag.title %></span>
       <% end %>
-      
+
       <div>Créé le <%= @gossip.created_at.strftime("%d/%m/%Y à %Hh%M") %></div>
     </div>
   </div>
 
+  <h2 class="text-center">Commentaires</h2>
 
-  <h2 class= "text-center">Commentaires</h2>
-  
   <%= form_with model: [@gossip, Comment.new], local: true do |f| %>
     <div class="col-12">
       <%= f.text_area :content, class: "form-control", rows: 2 %>
@@ -51,11 +79,12 @@
       <% end %>
     </div>
   <% end %>
-  <% @gossip.comments.each do |comment|%>
-  <% sender = comment.user%>
+
+  <% @gossip.comments.each do |comment| %>
+    <% sender = comment.user %>
     <div>
       <div>
-        <p><%= "#{sender.first_name} #{sender.last_name}"%>:</p>
+        <p><%= "#{sender.first_name} #{sender.last_name}" %> :</p>
         <p><%= comment.content %></p>
       </div>
       <% if current_user == comment.user %>
@@ -66,5 +95,3 @@
     </div>
   <% end %>
 </div>
-
-

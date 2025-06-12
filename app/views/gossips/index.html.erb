@@ -1,5 +1,9 @@
 <h1 class="mt-5 mb-4">Bienvenue sur The Gossip Project</h1>
+
+<% if current_user %>
 <%= link_to 'Créer un nouveau potin', new_gossip_path, class: "btn btn-primary" %>
+<% end %>
+
 <div class="d-flex flex-wrap justify-content-center">
 
   <% @gossips.each do |gossip| %>
@@ -8,6 +12,31 @@
         <div class="card-body">
           <h5 class="card-title"><%= gossip.title %></h5>
           <p class="card-text"><%= gossip.content %></p>
+
+         
+            <% if current_user %> 
+            <div class="d-flex align-items-center gap-2 justify-content-center">
+              <% if (like = gossip.likes.find_by(user_id: current_user.id)) %>
+                <%= button_to gossip_like_path(gossip, like), method: :delete, class: "btn btn-link p-0", form: { "data-turbo" => false } do %>
+                  <i class="fa-solid fa-heart text-danger fa-xl"></i>
+                <% end %>
+              <% else %>
+                <%= button_to gossip_likes_path(gossip), method: :post, class: "btn btn-link p-0", form: { "data-turbo" => false } do %>
+                  <i class="fa-regular fa-heart text-secondary fa-xl"></i>
+                <% end %>
+              <% end %>
+              <span><%= gossip.likes.count %></span>
+              </div>
+            <% else %>
+              <div class="d-flex align-items-center gap-2 justify-content-center" >
+                <i class="fa-solid fa-heart text-danger fa-xl"></i>
+                <span><%= gossip.likes.count %></span>
+              </div>
+            <% end %>
+            
+          
+
+
             
            <p class="card-text"><small class="text-body-secondary"> <%= gossip.user.first_name %> <%= gossip.user.last_name %> </small></p>
            <%= link_to 'Voir ce potin', gossip_path(gossip), class: "btn btn-outline-info" %>
