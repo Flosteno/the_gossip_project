@@ -13,7 +13,7 @@
         <%= link_to 'Modifier le potin', edit_gossip_path(@gossip), class: "btn btn-warning" %>
       </div>
       <div> 
-        <%= button_to 'Supprimer le potin', gossip_path(@gossip), method: :delete, data: { confirm: "Es-tu sûr ?"}, class: "btn btn-danger"%>
+        <%= button_to 'Supprimer le potin', gossip_path(@gossip), method: :delete, data: { controller: "confirm", action: "click->confirm#confirm", confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger"%>
       </div>
       <div>
         <strong>Ville :</strong>
