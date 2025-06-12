@@ -52,6 +52,12 @@
                 <li class="nav-item">
                  <!-- <%= link_to 'Bienvenue', welcome_path("Bob"), class: "nav-link" %> -->
                 </li>
+                <li class="nav-item">
+                  <%= link_to 'S\'inscrire', new_user_path, class: "nav-link #{'active' if current_page?(contact_path)}" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'Se connecter', new_session_path, class: "nav-link #{'active' if current_page?(contact_path)}" %>
+                </li>
               </ul>
             </div>
           </div>

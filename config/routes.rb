@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :gossips do
     resources :comments, only: [:create]
   end
-  resources :users, only: [:show]
+  resources :users, only: [:show, :new, :create]
   resources :cities, only: [:show]
   get "welcome/:user_name", to: 'welcome#hello', as: 'welcome'
   get "/contact", to: 'pages#contact'

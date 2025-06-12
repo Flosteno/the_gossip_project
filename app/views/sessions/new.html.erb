@@ -1,2 +1,37 @@
 <h1>Sessions#new</h1>
 <p>Find me in app/views/sessions/new.html.erb</p>
+
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h3 class="card-title mb-4 text-center">Connexion</h3>
+
+          <%= form_with url: sessions_path, method: :post, local: true do |form| %>
+            
+            <!-- Email -->
+            <div class="mb-3">
+              <%= form.label :email, "Adresse email", class: "form-label" %>
+              <%= form.email_field :email, class: "form-control", required: true %>
+            </div>
+
+            <!-- Mot de passe -->
+            <div class="mb-3">
+              <%= form.label :password, "Mot de passe", class: "form-label" %>
+              <%= form.password_field :password, class: "form-control", required: true %>
+            </div>
+
+            <!-- Bouton de connexion -->
+            <div class="text-center">
+              <%= form.submit "Se connecter", class: "btn btn-primary px-4" %>
+            </div>
+
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

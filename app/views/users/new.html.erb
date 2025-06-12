@@ -1,0 +1,72 @@
+<% if @user.errors.any? %>
+    <div class="alert alert-danger">
+      <h4>Erreurs :</h4>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<div class="container mt-5">
+  <h2 class="mb-4 text-center">Créer un compte</h2>
+
+  <%= form_with model: @user, method: :post, local: true, class: "row g-3 needs-validation" do |form| %>
+    
+    <!-- Prénom -->
+    <div class="col-md-6">
+      <%= form.label :first_name, "Prénom", class: "form-label" %>
+      <%= form.text_field :first_name, class: "form-control", required: true %>
+    </div>
+
+    <!-- Nom -->
+    <div class="col-md-6">
+      <%= form.label :last_name, "Nom", class: "form-label" %>
+      <%= form.text_field :last_name, class: "form-control", required: true %>
+    </div>
+
+    <!-- Email -->
+    <div class="col-md-12">
+      <%= form.label :email, class: "form-label" %>
+      <%= form.email_field :email, class: "form-control", required: true %>
+    </div>
+
+    <!-- Mot de passe -->
+    <div class="col-md-6">
+      <%= form.label :password, "Mot de passe", class: "form-label" %>
+      <%= form.password_field :password, class: "form-control", required: true %>
+    </div>
+
+    <!-- Confirmation mot de passe -->
+    <div class="col-md-6">
+      <%= form.label :password_confirmation, "Confirmation", class: "form-label" %>
+      <%= form.password_field :password_confirmation, class: "form-control", required: true %>
+    </div>
+
+    <!-- Ville -->
+    <div class="col-md-6">
+      <%= form.label :city_id, "Ville", class: "form-label" %>
+      <%= form.collection_select :city_id, City.all, :id, :name, { prompt: "Choisir une ville" }, class: "form-select", required: true %>
+    </div>
+
+    <!-- Âge -->
+    <div class="col-md-6">
+      <%= form.label :age, "Âge", class: "form-label" %>
+      <%= form.number_field :age, class: "form-control", min: 0, required: true %>
+    </div>
+
+    <!-- Description -->
+    <div class="col-md-12">
+      <%= form.label :description, "Description", class: "form-label" %>
+      <%= form.text_area :description, class: "form-control", rows: 4 %>
+    </div>
+
+    <!-- Bouton -->
+    <div class="col-12 text-center mt-4">
+      <%= form.submit "Créer le compte", class: "btn btn-primary px-4" %>
+    </div>
+
+  <% end %>
+</div>

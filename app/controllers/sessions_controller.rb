@@ -5,13 +5,15 @@ class SessionsController < ApplicationController
 
   def create
     
-    user = User.find_by(email: :email)
+    user = User.find_by(email: params[:email])
 
-    if user && user.authenticate(:password)
+    if user && user.authenticate(params[:password])
       session[:user_id] = user.id
+      redirect_to root_path, notice: "Connexion établie"
     else
       flash.now[:alert] = 'Combinaison email/mot de passe invalide'
-      render :new
+      puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+      render :new, status: :unprocessable_entity
     end
   end
 
