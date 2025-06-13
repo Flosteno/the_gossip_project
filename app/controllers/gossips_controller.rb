@@ -15,7 +15,8 @@ class GossipsController < ApplicationController
   end
 
   def create
-    @gossip.user_id = current_user
+    @gossip = Gossip.new(post_params)
+    @gossip.user = current_user
   
     if @gossip.save
       redirect_to root_path, notice: "Le super potin a bien été sauvegardé !"
