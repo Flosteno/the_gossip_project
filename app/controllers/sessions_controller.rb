@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
 
     if user && user.authenticate(params[:password])
       log_in(user)
+      remember(user)
       redirect_to root_path, notice: "Connexion établie"
     else
       flash.now[:alert] = 'Combinaison email/mot de passe invalide'
@@ -17,7 +18,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session.delete(:user_id)
+    log_out(current_user)
     redirect_to root_path, notice: "Vous avez été déconnecté"
   end
 end

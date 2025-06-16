@@ -31,52 +31,58 @@
 
   <body>
 
-    <div class="container text-center">
-      
-      <header class="mb-4">
-      
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-          <div class="container-fluid">
-            <%= link_to 'The Gossip Project', root_path, class: "navbar-brand" %>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <%= link_to 'Accueil', root_path, class: "nav-link #{'active' if current_page?(root_path)}" %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to 'L\'équipe', team_path, class: "nav-link #{'active' if current_page?(team_path)}" %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to 'Nous contacter', contact_path, class: "nav-link #{'active' if current_page?(contact_path)}" %>
-                </li>
-                <li class="nav-item">
-                 <!-- <%= link_to 'Bienvenue', welcome_path("Bob"), class: "nav-link" %> -->
-                </li>
-                <%if session[:user_id]%>
-                    <%= button_to "Déconnexion", session_path, method: :delete %>
-                <%else%>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-turbo="false">
-                      Compte
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownAccount">
-                      <li>
-                        <%= link_to "S'inscrire", new_user_path, class: "dropdown-item #{'active' if current_page?(new_user_path)}" %>
-                      </li>
-                      <li>
-                        <%= link_to "Se connecter", new_session_path, class: "dropdown-item #{'active' if current_page?(new_session_path)}" %>
-                      </li>
-                    </ul>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </header>
+  <% if controller_name == 'gossips' && action_name == 'index' %>
+    <div id="logo-intro" class="logo-intro-container d-none">
+      <%= image_tag "logo_tgp.png", alt: "Logo", class: "logo-intro-img" %>
+    </div>
+  <% end %>
+
+
+   <header>
+  <nav class="navbar navbar-expand-lg custom-navbar">
+  <div class="container-fluid">
+    <%= link_to root_path, class: "navbar-brand d-flex align-items-center" do %>
+      <%= image_tag "logo_tgp.png", alt: "Logo Gossip Project", height: "50" %>
+    <% end %>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <%= link_to 'Accueil', root_path, class: "nav-link #{'active' if current_page?(root_path)}" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "L'équipe", team_path, class: "nav-link #{'active' if current_page?(team_path)}" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Nous contacter", contact_path, class: "nav-link #{'active' if current_page?(contact_path)}" %>
+        </li>
+
+        <% if session[:user_id] %>
+          <li class="nav-item">
+            <%= button_to "Déconnexion", session_path, method: :delete, class: "btn btn-outline-light ms-2" %>
+          </li>
+        <% else %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Compte
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><%= link_to "S'inscrire", new_user_path, class: "dropdown-item" %></li>
+              <li><%= link_to "Se connecter", new_session_path, class: "dropdown-item" %></li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+</header>
+
 
        <% if notice %>
   <div class="alert alert-success alert-dismissible">

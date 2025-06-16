@@ -9,3 +9,114 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
+body {
+  background-color: #011627; /* bleu nuit profond, presque noir
+ /* Bleu marine très foncé */
+  color: #e0f7fa;            /* Texte très clair cyan */
+  font-family: 'Segoe UI', sans-serif;
+}
+
+h1 {
+  color: #00bcd4; /* Cyan */
+  text-align: center;
+  font-weight: bold;
+}
+
+.card {
+  background-color: #1e293b; /* Bleu marine foncé */
+  color: #e0f7fa;
+  border: 1px solid #00bcd4;
+  box-shadow: 0 4px 8px rgba(0, 188, 212, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.btn-primary {
+  background-color: #00bcd4;
+  border-color: #00bcd4;
+}
+
+.btn-outline-info {
+  border-color: #00bcd4;
+  color: #00bcd4;
+}
+
+.btn-outline-info:hover {
+  background-color: #00bcd4;
+  color: #0f172a;
+}
+
+.custom-navbar {
+  background-color: #062f4f; // bleu marine foncé
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.custom-navbar .nav-link,
+.custom-navbar .navbar-brand {
+  color: #e0f7fa !important; // cyan clair
+}
+
+.custom-navbar .nav-link:hover {
+  color: #00bcd4 !important; // cyan plus vif
+}
+
+.custom-navbar .dropdown-menu {
+  background-color: #073b5c;
+}
+
+.custom-navbar .dropdown-item {
+  color: #e0f7fa;
+}
+
+.custom-navbar .dropdown-item:hover {
+  background-color: #055276;
+  color: white;
+}
+
+
+/* Logo Intro Fullscreen */
+.logo-intro-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #011627;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeOutUp 1s ease-in-out 2s forwards;
+}
+
+.logo-intro-img {
+  width: 200px;
+  opacity: 0;
+  animation: zoomIn 1.5s ease-out forwards;
+  border-radius: 10px;
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutUp {
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+    visibility: hidden;
+  }
+}
+
